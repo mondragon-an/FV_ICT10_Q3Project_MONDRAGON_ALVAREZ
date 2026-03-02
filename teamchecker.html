@@ -135,74 +135,48 @@
     <div class="card">
       <h2>Seatwork 2 — Third Quarter</h2>
 
-      <div class="question">
-        <p>Are you done with the online registration?</p>
-        <label><input type="radio" name="reg" value="yes"> Yes</label>
-        <label><input type="radio" name="reg" value="no"> No</label>
-      </div>
+      <div>
+        <h2>⌗ intrams team checker ⌗</h2>
+        <form id="form">
+            <label>registered online?</label>
+            <input type="radio" name="registration" id="registration" value="registered" required> yes
+            <input type="radio" name="registration" value="no"> no
+            <br>
+            <label>do you have medical clearance?</label>
+            <input type="radio" name="medical" id="medicalyes" value="yes" required> yes
+            <input type="radio" name="medical" id="medicalno" value="no"> no
+            <br>
+            <label>what is your grade level and section?</label>
+            <select name="grade" required>
+                <option value="0">select grade</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+            <select name="section" required>
+                <option value="0">select section</option>
+                <option value="1">emerald</option>
+                <option value="2">ruby</option>
+                <option value="3">sapphire</option>
+                <option value="4">topaz</option>
+                <option value="5">jade</option>
+            </select>
+            <br><br>
+            <button type="submit" py-click="intrams_check">sign up</button>
+        </form>  
+        <div id="result"></div>
+    </div>
 
-      <div class="question">
-        <p>Do you have the medical clearance from the clinic?</p>
-        <label><input type="radio" name="med" value="yes"> Yes</label>
-        <label><input type="radio" name="med" value="no"> No</label>
-      </div>
+    <script type="py" src="main.py"></script>
 
-      <div class="question">
-        <p>What is your Grade and Section?</p>
-        <select id="grade">
-          <option value="">-- Select Grade --</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-        </select>
-        <select id="section" style="margin-top: 10px;">
-          <option value="">-- Select Section --</option>
-          <option value="Ruby">Ruby</option>
-          <option value="Sapphire">Sapphire</option>
-          <option value="Emerald">Emerald</option>
-          <option value="Topaz">Topaz</option>
-        </select>
-      </div>
-
-      <button onclick="checkTeam()">SIGN UP</button>
+      <button oncl="checkTeam">SIGN UP</button>
 
       <p id="result"></p>
     </div>
   </div>
 
-  <script>
-    function checkTeam() {
-      var regDone = document.querySelector('input[name="reg"]:checked');
-      var medDone = document.querySelector('input[name="med"]:checked');
-      var grade = document.getElementById("grade").value;
-      var section = document.getElementById("section").value;
-      var result = document.getElementById("result");
-
-      if (regDone == null || medDone == null || grade == "" || section == "") {
-        result.innerHTML = "Please answer all questions.";
-        return;
-      }
-
-      var reg = regDone.value;
-      var med = medDone.value;
-
-      if (reg == "yes" && med == "yes") {
-        var gradeNum = parseInt(grade);
-
-        if (gradeNum == 7 || gradeNum == 8) {
-          result.innerHTML = "Congratulations! You are part of the Blue Bears.";
-        } else if (gradeNum == 9 || gradeNum == 10) {
-          result.innerHTML = "Congratulations! You are part of the Yellow Tigers.";
-        }
-
-      } else if (reg == "no") {
-        result.innerHTML = "Please complete your online registration first.";
-      } else if (med == "no") {
-        result.innerHTML = "Please get your medical clearance from the clinic.";
-      }
-    }
-  </script>
 
 </body>
+
 </html>
