@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Team Checker - Intramurals</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: Georgia, serif;
+      background: #f0ece4;
+      min-height: 100vh;
+    }
+
+    nav {
+      background: #1a1a2e;
+      padding: 14px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav span {
+      color: #e0d5c5;
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
+
+    nav a {
+      color: #e0d5c5;
+      text-decoration: none;
+      margin-left: 16px;
+      font-size: 13px;
+      padding: 6px 14px;
+      border: 1px solid #e0d5c5;
+      border-radius: 3px;
+    }
+
+    nav a:hover, nav a.active {
+      background: #e0d5c5;
+      color: #1a1a2e;
+    }
+
+    .page {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: calc(100vh - 50px);
+      padding: 40px 20px;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid #ccc;
+      padding: 40px;
+      width: 100%;
+      max-width: 460px;
+      box-shadow: 4px 4px 0px #1a1a2e;
+    }
+
+    h2 {
+      font-size: 20px;
+      color: #1a1a2e;
+      margin-bottom: 24px;
+      border-bottom: 2px solid #1a1a2e;
+      padding-bottom: 10px;
+      letter-spacing: 1px;
+    }
+
+    .question {
+      margin-bottom: 18px;
+    }
+
+    .question p {
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    .question label {
+      font-size: 14px;
+      margin-right: 16px;
+      color: #444;
+    }
+
+    select {
+      width: 100%;
+      padding: 9px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+      font-family: Georgia, serif;
+      background: white;
+      outline: none;
+    }
+
+    select:focus { border-color: #1a1a2e; }
+
+    button {
+      width: 100%;
+      margin-top: 20px;
+      padding: 12px;
+      background: #1a1a2e;
+      color: white;
+      border: none;
+      font-size: 14px;
+      letter-spacing: 2px;
+      cursor: pointer;
+      font-family: Georgia, serif;
+    }
+
+    button:hover { background: #2e2e50; }
+
+    #result {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 15px;
+      color: #1a1a2e;
+      min-height: 24px;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <span>Intramurals SY 2025-2026</span>
+    <div>
+      <a href="index.html">Sign Up</a>
+      <a href="teamchecker.html" class="active">Team Checker</a>
+      <a href="players.html">Players</a>
+    </div>
+  </nav>
+
+  <div class="page">
+    <div class="card">
+      <h2>Seatwork 2 — Third Quarter</h2>
+
+      <div class="question">
+        <p>Are you done with the online registration?</p>
+        <label><input type="radio" name="reg" value="yes"> Yes</label>
+        <label><input type="radio" name="reg" value="no"> No</label>
+      </div>
+
+      <div class="question">
+        <p>Do you have the medical clearance from the clinic?</p>
+        <label><input type="radio" name="med" value="yes"> Yes</label>
+        <label><input type="radio" name="med" value="no"> No</label>
+      </div>
+
+      <div class="question">
+        <p>What is your Grade and Section?</p>
+        <select id="grade">
+          <option value="">-- Select Grade --</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+        <select id="section" style="margin-top: 10px;">
+          <option value="">-- Select Section --</option>
+          <option value="Ruby">Ruby</option>
+          <option value="Sapphire">Sapphire</option>
+          <option value="Emerald">Emerald</option>
+          <option value="Diamond">Diamond</option>
+        </select>
+      </div>
+
+      <button onclick="checkTeam()">SIGN UP</button>
+
+      <p id="result"></p>
+    </div>
+  </div>
+
+  <script>
+    function checkTeam() {
+      var regDone = document.querySelector('input[name="reg"]:checked');
+      var medDone = document.querySelector('input[name="med"]:checked');
+      var grade = document.getElementById("grade").value;
+      var section = document.getElementById("section").value;
+      var result = document.getElementById("result");
+
+      if (regDone == null || medDone == null || grade == "" || section == "") {
+        result.innerHTML = "Please answer all questions.";
+        return;
+      }
+
+      var reg = regDone.value;
+      var med = medDone.value;
+
+      if (reg == "yes" && med == "yes") {
+        var gradeNum = parseInt(grade);
+
+        if (gradeNum == 7 || gradeNum == 8) {
+          result.innerHTML = "Congratulations! You are part of the Blue Eagles.";
+        } else if (gradeNum == 9 || gradeNum == 10) {
+          result.innerHTML = "Congratulations! You are part of the Yellow Tigers.";
+        }
+
+      } else if (reg == "no") {
+        result.innerHTML = "Please complete your online registration first.";
+      } else if (med == "no") {
+        result.innerHTML = "Please get your medical clearance from the clinic.";
+      }
+    }
+  </script>
+
+</body>
+</html>
