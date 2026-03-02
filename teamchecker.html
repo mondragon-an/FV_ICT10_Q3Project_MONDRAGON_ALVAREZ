@@ -2,12 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Team Checker - Intramurals</title>
+  <title>ICT PROJECT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://pyscript.net/releases/2025.7.3/core.css"/>
+  <script type="module" src="https://pyscript.net/releases/2025.7.3/core.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: Georgia, serif;
+      font-family: Nunito;
       background: #f0ece4;
       min-height: 100vh;
     }
@@ -54,51 +60,75 @@
       border: 1px solid #ccc;
       padding: 40px;
       width: 100%;
-      max-width: 460px;
+      max-width: 420px;
       box-shadow: 4px 4px 0px #1a1a2e;
     }
 
     h2 {
-      font-size: 20px;
+      font-size: 22px;
       color: #1a1a2e;
       margin-bottom: 24px;
+      letter-spacing: 1px;
       border-bottom: 2px solid #1a1a2e;
       padding-bottom: 10px;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
       letter-spacing: 1px;
+      color: #555;
+      margin-bottom: 5px;
+      margin-top: 16px;
+      text-transform: uppercase;
     }
 
-    .question {
-      margin-bottom: 18px;
+    .radio-group {
+      display: flex;
+      gap: 20px;
+      margin-top: 6px;
     }
 
-    .question p {
+    .radio-group label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
       font-size: 14px;
+      letter-spacing: 0;
+      text-transform: none;
       color: #333;
-      margin-bottom: 8px;
+      margin: 0;
+      cursor: pointer;
     }
 
-    .question label {
-      font-size: 14px;
-      margin-right: 16px;
-      color: #444;
+    input[type="radio"] {
+      width: auto;
+      accent-color: #1a1a2e;
+      cursor: pointer;
     }
 
     select {
       width: 100%;
-      padding: 9px;
-      margin-top: 6px;
+      padding: 10px;
       border: 1px solid #ccc;
       font-size: 14px;
-      font-family: Georgia, serif;
+      font-family: Nunito;
       background: white;
       outline: none;
     }
 
     select:focus { border-color: #1a1a2e; }
 
+    .selects-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
     button {
       width: 100%;
-      margin-top: 20px;
+      margin-top: 24px;
       padding: 12px;
       background: #1a1a2e;
       color: white;
@@ -106,18 +136,21 @@
       font-size: 14px;
       letter-spacing: 2px;
       cursor: pointer;
-      font-family: Georgia, serif;
+      font-family: Nunito;
     }
 
     button:hover { background: #2e2e50; }
 
-    #result {
-      margin-top: 20px;
+    #result1 {
+      margin-top: 16px;
+      font-size: 13px;
       text-align: center;
-      font-size: 15px;
+      min-height: 20px;
       color: #1a1a2e;
-      min-height: 24px;
     }
+
+    #result1.error { color: #c0392b; }
+    #result1.success { color: #1a5e3a; }
   </style>
 </head>
 <body>
@@ -132,50 +165,56 @@
   </nav>
 
   <div class="page">
-    
-        <h2>Intrams Team Checker </h2>
-        <form id="form">
-            <label>registered online?</label>
-            <input type="radio" name="registration" id="registration" value="registered" required> yes
-            <input type="radio" name="registration" value="no"> no
-            <br>
-            <label>do you have medical clearance?</label>
-            <input type="radio" name="medical" id="medicalyes" value="yes" required> yes
-            <input type="radio" name="medical" id="medicalno" value="no"> no
-            <br>
-            <label>what is your grade level and section?</label>
-            <select name="grade" required>
-                <option value="0">select grade</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-            </select>
-            <select name="section" required>
-                <option value="0">select section</option>
-                <option value="1">emerald</option>
-                <option value="2">ruby</option>
-                <option value="3">sapphire</option>
-                <option value="4">topaz</option>
-                <option value="5">jade</option>
-            </select>
-            <br><br>
-            <button type="submit" py-click="intrams_check">continue</button>
-        </form>  
-        <div id="result1"></div>
-    </div>
+    <div class="card">
+      <h2>Intrams Team Checker</h2>
 
-    <script type="py" src="main.py"></script>
+      <form id="form">
+        <label>Registered online?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="registration" value="yes" required> Yes</label>
+          <label><input type="radio" name="registration" value="no"> No</label>
+        </div>
 
-      <button oncl="checkTeam">SIGN UP</button>
+        <label>Do you have medical clearance?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="medical" value="yes" required> Yes</label>
+          <label><input type="radio" name="medical" value="no"> No</label>
+        </div>
 
-      <p id="result1"></p>
+        <label>Grade Level &amp; Section</label>
+        <div class="selects-row">
+          <select name="grade" required>
+            <option value="0">Select grade</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+          </select>
+          <select name="section" required>
+            <option value="0">Select section</option>
+            <option value="1">Emerald</option>
+            <option value="2">Ruby</option>
+            <option value="3">Sapphire</option>
+            <option value="4">Topaz</option>
+            <option value="5">Jade</option>
+          </select>
+        </div>
+
+        <button type="submit" py-click="intrams_check">CONTINUE</button>
+      </form>
+
+      <div id="result1"></div>
     </div>
   </div>
 
+  <script type="py" src="main.py"></script>
+
+</body>
+</html>
 
 </body>
 
 </html>
+
 
 
