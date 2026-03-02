@@ -105,10 +105,11 @@ def intrams_check(e):
 def show_players(e):
     # list of all classmate last names
     players = [
-        "Escudero", "Estrada", "Tolentino", "Pimentel", "Binay",
-        "Cayetano", "Dela Rosa", "Ejercito", "Gatchalian", "Go",
-        "Hontiveros", "Lapid", "Legarda", "Marcos", "Padilla",
-        "Poe", "Revilla", "Tulfo", "Villanueva", "Villar", "Zubiri"
+        "Al hazmi", "Alvarez", "Belsa", "Bernas", "Calaycay",
+        "Castelo", "Cruz", "Defensor", "Dimasuhid", "Francisco",
+        "Hsu", "Judge", "Juatchon", "Lilagan", "Luna",
+        "Macaranas", "Mateo", "Mondragon", "Naldoza", "Natividad", 
+        "Ng", "Ong", "Paz", "Ramos", "Ramos", "Ramos", "Reodica", "Repolona"
     ]
 
     # gets the player list container and clears it before displaying
