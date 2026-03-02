@@ -38,3 +38,50 @@ def validate_signup(E):
     display(result.innerHTML, target="result")
 
 
+def intrams_check(e):
+    e.preventDefault()
+    
+    # gets form values
+    registration = document.querySelector("#registration:checked")
+    medical_yes = document.querySelector("#medicalyes:checked")
+    grade = document.querySelector("select[name='grade']").value
+    section = document.querySelector("select[name='section']").value
+    
+    # team assignments based on section
+    teams = {
+        "1": "Red Bulldogs",    # emerald
+        "2": "Green Hornets",   # ruby
+        "3": "Yellow Tigers",   # sapphire
+        "4": "Blue Bears",      # topaz
+        "5": "Yellow Tigers"    # jade
+    }
+    
+    result_div = document.querySelector("#result")
+    result_div.style.display = "block"
+    
+    # nested if conditions
+    if registration:
+        if medical_yes:
+            if grade != "0":
+                if section != "0":
+                    if int(grade) >= 7 and int(grade) <= 10:
+                        assigned_team = teams[section]
+                        result_div.className = "success"
+                        result_div.innerHTML = f"<h2>Congratulations!</h2><p>Your team: <strong>{assigned_team}</strong></p>"
+                    else:
+                        result_div.className = "error"
+                        result_div.innerHTML = "<h2>Not Eligible</h2><p>Only grades 7-10 can join.</p>"
+                else:
+                    result_div.className = "error"
+                    result_div.innerHTML = "<h2>Not Eligible</h2><p>Please select your section.</p>"
+            else:
+                result_div.className = "error"
+                result_div.innerHTML = "<h2>Not Eligible</h2><p>Please select your grade level.</p>"
+        else:
+            result_div.className = "error"
+            result_div.innerHTML = "<h2>Not Eligible</h2><p>Please get medical clearance.</p>"
+    else:
+        result_div.className = "error"
+        result_div.innerHTML = "<h2>Not Eligible</h2><p>Please register online.</p>"
+
+
